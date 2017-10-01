@@ -4,7 +4,6 @@ import {
 } from 'react-native';
 import HomeView from './view/home.js'
 import GameDetailView from './view/gameDetail.js'
-import LoginView from './view/login.js';
 import { Scene, Router } from 'react-native-router-flux';
 
 export default class App extends Component {
@@ -15,8 +14,7 @@ export default class App extends Component {
             <Router>
                 <Scene key="root">
                     <Scene key="home" component={HomeView}  hideNavBar={true}/>
-                    <Scene key="gameDetail" component={GameDetailView}  hideNavBar={isAndroid}/>                    <Scene key="gameDetail" component={GameDetailView}  hideNavBar={isAndroid}/>
-                    {/* <Scene key="login" component={LoginView}  hideNavBar={isAndroid}/> */}
+                    <Scene key="gameDetail" component={GameDetailView}  hideNavBar={isAndroid}/>
                 </Scene>            
             </Router>
         );
