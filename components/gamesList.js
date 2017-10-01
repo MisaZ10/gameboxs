@@ -5,9 +5,11 @@ import {
     ScrollView,
     Image,
     ListView,
-    FlatList
+    TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Actions } from 'react-native-router-flux';
+
 import Gamebox from './gameBox.js';
 
 export default class GamesList extends Component {
@@ -16,28 +18,38 @@ export default class GamesList extends Component {
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
-        const games = this.props.games;
         this.state = {
-            dataSource: ds.cloneWithRows(games)
+            dataSource: ds
         };
     }
-
+    componentDidMount() {
+       this.updateDataSource(this.props.games);
+    }
     componentWillReceiveProps(newProps){
         if(newProps.games != this.props.games) {
-            this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(newProps.games)
-            })
+            this.updateDataSource(newProps.games);
         }
     }
-    updateDataSource() {
-
+    updateDataSource = (games) => {
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(games)
+        })
+    }
+    gamePress(game) {
+        Actions.gameDetail({game});
     }
     render() {
         return (
             <ListView
                 enableEmptySections={true}
                 dataSource={this.state.dataSource}
-                renderRow={(game) => <Gamebox game={game}></Gamebox>}
+                renderRow={(game) => {
+                    return (
+                        <TouchableOpacity onPress={() => this.gamePress(game)}>
+                            <Gamebox game={game}></Gamebox>
+                        </TouchableOpacity>
+                    )
+                }}
             />
         );
     }

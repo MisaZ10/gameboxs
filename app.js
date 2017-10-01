@@ -1,33 +1,24 @@
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
-import GamesList from './components/gamesList.js';
-import apiGames from './actions/igdbClients.js';
+import {
+    Platform,
+} from 'react-native';
+import HomeView from './view/home.js'
+import GameDetailView from './view/gameDetail.js'
+import LoginView from './view/login.js';
+import { Scene, Router } from 'react-native-router-flux';
 
 export default class App extends Component {
-    state = {
-        games: []
-    }
 
-    componentDidMount() {
-        apiGames.getGames(20)
-        .then((games) => this.setState({games: games}))
-        .catch(err => console.log('Error igdb', err)) ;
-    }
     render() {
-        const games = this.state.games;
-        console.log(games);
+        const isAndroid = Platform.OS == 'android';
         return (
-            <View style={styles.container}>
-                <GamesList games={games}/>
-            </View>
+            <Router>
+                <Scene key="root">
+                    <Scene key="home" component={HomeView}  hideNavBar={true}/>
+                    <Scene key="gameDetail" component={GameDetailView}  hideNavBar={isAndroid}/>                    <Scene key="gameDetail" component={GameDetailView}  hideNavBar={isAndroid}/>
+                    {/* <Scene key="login" component={LoginView}  hideNavBar={isAndroid}/> */}
+                </Scene>            
+            </Router>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'lightgray',
-        paddingTop: 10
-    }
-});
