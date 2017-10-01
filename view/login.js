@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 
 export default class LoginlView extends Component {
 
     componentDidMount() {}
     render() {
-        console.log(this.props.game);
         return (
             <View style={styles.container}>
+                <Text>
+                    GameBoxs
+                </Text>
             </View>
         );
     }
