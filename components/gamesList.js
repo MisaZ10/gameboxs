@@ -22,17 +22,23 @@ export default class GamesList extends Component {
         };
     }
 
-    componenentWillReceiveProps(newProps){
-        console.log('Cambio props');
-        console.log(newProps);
+    componentWillReceiveProps(newProps){
         if(newProps.games != this.props.games) {
-            console.log('Cambio juegos');
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(newProps.games)
+            })
         }
     }
+    updateDataSource() {
 
+    }
     render() {
-        return (<ListView
-            dataSource={this.state.dataSource}
-            renderRow={(game) => <Gamebox game={game}></Gamebox>}/>);
+        return (
+            <ListView
+                enableEmptySections={true}
+                dataSource={this.state.dataSource}
+                renderRow={(game) => <Gamebox game={game}></Gamebox>}
+            />
+        );
     }
 }

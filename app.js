@@ -9,13 +9,13 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        apiGames.getGames(10)
-        .then((games) => this.setState({games: games}));
-        // console.log(apiGames.getGames(10))
+        apiGames.getGames(20)
+        .then((games) => this.setState({games: games}))
+        .catch(err => console.log('Error igdb', err)) ;
     }
     render() {
         const games = this.state.games;
-        console.log('Games  ', this.state.games);
+        console.log(games);
         return (
             <View style={styles.container}>
                 <GamesList games={games}/>

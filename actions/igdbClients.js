@@ -1,16 +1,17 @@
-const igdbUrl = 'https://api-2445582011268.apicast.io/games/?fields=*&limit=';
+const igdbUrl = 'https://api-2445582011268.apicast.io/games/?fields=name,popularity,cover&order=popularity:desc&&filter[popularity][gt]=300&&limit=';
 const apiGames = {};
 const headers = {
     'user-key': '2e9edec754e59bf50699012d9f3c80e1'
 }
 
 apiGames.getGames = function (limit) {
-    return fetch(igdbUrl + limit + '&order=popularity:desc', {
+    return fetch(igdbUrl + limit, {
         method: 'GET',
         headers: headers
     })
     .then((response) => response.json())
     .then((data) => {
+        console.log('URL games', data);
        return data.map((game, index) => {
             return {
                 name: game.name,
