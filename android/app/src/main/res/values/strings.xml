@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">gameboxs</string>
+    <string name="app_name">Game Boxs</string>
+    <string name="fb_app_id">1682020588475132</string>
+    <string name="fb_login_protocol_scheme">fb1682020588475132</string>
 </resources>
