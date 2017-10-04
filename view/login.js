@@ -47,7 +47,7 @@ export default class LoginlView extends Component {
             });
     }
     goToHome() {
-        Actions.homeMenu();
+        Actions.home();
     }
     handleLogin = (error, result) => {
         if (error) {

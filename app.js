@@ -14,7 +14,7 @@ export default class App extends Component {
         return (
             <Router>
                 <Scene key="root">
-                    <Scene initial key="login" component={LoginView}  hideNavBar/>
+                    <Scene key="login" component={LoginView}  hideNavBar/>
                     <Scene key="homeMenu">
                         <Scene key="home" component={HomeView}  hideNavBar={true}/>
                         <Scene key="gameDetail" component={GameDetailView}  hideNavBar={isAndroid}/>
