@@ -5,7 +5,7 @@ import {
 import HomeView from './view/home.js'
 import GameDetailView from './view/gameDetail.js'
 import LoginView from './view/login.js';
-import { Scene, Router } from 'react-native-router-flux';
+import {Scene, Router, Stack} from 'react-native-router-flux';
 
 export default class App extends Component {
 
@@ -14,9 +14,11 @@ export default class App extends Component {
         return (
             <Router>
                 <Scene key="root">
-                    <Scene key="login" component={LoginView}  hideNavBar/>
-                    <Scene key="home" component={HomeView}  hideNavBar={true}/>
-                    <Scene key="gameDetail" component={GameDetailView}  hideNavBar={isAndroid}/>
+                    <Scene initial key="login" component={LoginView}  hideNavBar/>
+                    <Scene key="homeMenu">
+                        <Scene key="home" component={HomeView}  hideNavBar={true}/>
+                        <Scene key="gameDetail" component={GameDetailView}  hideNavBar={isAndroid}/>
+                    </Scene> 
                 </Scene>            
             </Router>
         );
