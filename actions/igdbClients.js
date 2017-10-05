@@ -18,8 +18,6 @@ apiGames.getGames = function (limit) {
                 id: game.id,
                 name: game.name,
                 imgUrl: 'https:' + game.cover.url.replace('t_thumb','t_thumb_2x'),
-                likes: index*10,
-                comments: index*5
             }
         })
     });

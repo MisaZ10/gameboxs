@@ -2,19 +2,10 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, Button} from 'react-native';
 import FBSDK, {LoginButton, AccessToken} from 'react-native-fbsdk';
 import {Actions} from 'react-native-router-flux';
-import * as firebase from 'firebase';
+import firebase, { auth } from '../actions/firebase.js';
 
-const config = {
-    apiKey: 'AIzaSyDjJN2mf5TGnivtHLEbuj8bPW2dGrbRJsE',
-    authDomain: 'gameboxs-349fd.firebaseapp.com',
-    databaseURL: 'https://gameboxs-349fd.firebaseio.com',
-    projectId: 'gameboxs-349fd',
-    storageBucket: '',
-    messagingSenderId: '476694775950'
-};
-firebase.initializeApp(config);
-const {FacebookAuthProvider} = firebase.auth;
-const auth = firebase.auth();
+const { FacebookAuthProvider } = firebase.auth;
+
 export default class LoginlView extends Component {
 
     componentDidMount() {
