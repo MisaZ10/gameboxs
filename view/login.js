@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Button} from 'react-native';
+import {StyleSheet, View, Text, Button, Image} from 'react-native';
 import FBSDK, {LoginButton, AccessToken} from 'react-native-fbsdk';
 import {Actions} from 'react-native-router-flux';
 import firebase, { auth } from '../actions/firebase.js';
@@ -29,7 +29,6 @@ export default class LoginlView extends Component {
         let credential = FacebookAuthProvider.credential(AccessToken);
         auth.signInWithCredential(credential)
             .then( (user) => {
-                console.log("Sign In Success", user);
                 this.setState({user, login: true})
                 this.goToHome();
             })
@@ -53,21 +52,20 @@ export default class LoginlView extends Component {
                 })
         }
     }
-    handleBtn = () => {
-        this.goToHome();
-    }
+
     render() {
+        const image = Math.round(Math.random()*4) + 1;
         return (
-            <View style={styles.container}>
+            <Image source={require('../assets/backgrounds/4.jpg')} style={styles.container}>
                 <Text style={styles.walcome}>
                     GameBoxs for {this.state.user.displayName}
                 </Text>
-                <Button style={styles.btn} title="Start GameBoxs" onPress={this.handleBtn}/>
+                <Image source={require('../assets/logo.png')} style={styles.logo}/>
                 <LoginButton
                     readPermissions={['public_profile', 'email']}
                     onLoginFinished={this.handleLogin}
                     onLogoutFinished={() => alert("logout.")}/>
-            </View>
+            </Image>
         );
     }
 }
@@ -77,17 +75,25 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'lightgray',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: null,
+        width: null
     },
     walcome: {
         fontSize: 20,
         fontWeight: '600',
-        marginBottom: 20
+        marginBottom: 5,
+        color: '#F0F0F2'
     },
     btn: {
         marginBottom: 5
     },
     fcBtn: {
         marginTop: 5
+    },
+    logo: {
+        height: 90,
+        width: 90,
+        marginBottom: 5,
     }
 });

@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, ActivityIndicator} from 'react-native';
 import GamesList from '../components/gamesList.js';
 import apiGames from '../actions/igdbClients.js';
 
 export default class HomeView extends Component {
     state = {
-        games: []
+        games: null
     }
 
     componentDidMount() {
@@ -16,9 +16,17 @@ export default class HomeView extends Component {
     }
     render() {
         const games = this.state.games;
+        if(!games) {
+            return (
+                <View style={styles.container}>
+                    <ActivityIndicator size="large"/>
+                </View>
+            )
+        }
         return (
             <View style={styles.container}>
-                <GamesList games={games}/>
+                {games && <GamesList games={games}/>}
+                {!games &&  <ActivityIndicator  style={styles.container} size="large"/>}
             </View>
         );
     }
@@ -29,5 +37,12 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'lightgray',
         paddingTop: 10
+    },
+    indicator: {
+        flex: 1,
+        opacity: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingHorizontal: 50,
     }
 });
