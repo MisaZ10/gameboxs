@@ -16,8 +16,6 @@ export default class CommentsList extends Component {
         };
     }
     componentDidMount() {
-        console.log('Comentario', this.props.comments)
-
         this.updateDataSource(this.props.comments);
     }
     componentWillReceiveProps(newProps) {
@@ -40,7 +38,7 @@ export default class CommentsList extends Component {
             dataSource={this.state.dataSource}
             renderRow={(comment) => {
             return (
-                <Comment comment={comment.text}></Comment>
+                <Comment comment={comment}></Comment>
             )
         }}/>);
     }
