@@ -55,8 +55,15 @@ export default class LoginlView extends Component {
 
     render() {
         const image = Math.round(Math.random()*4) + 1;
+        const imgs = [
+                require('../assets/backgrounds/1.jpg'),
+                require('../assets/backgrounds/2.jpg'),
+                require('../assets/backgrounds/3.jpg'),
+                require('../assets/backgrounds/4.jpg'),
+                require('../assets/backgrounds/5.jpg')
+        ]
         return (
-            <Image source={require('../assets/backgrounds/4.jpg')} style={styles.container}>
+            <Image source={imgs[image]} style={styles.container}>
                 <Text style={styles.walcome}>
                     GameBoxs for {this.state.user.displayName}
                 </Text>
