@@ -8,12 +8,13 @@ export default class Gamebox extends Component {
         super(props);
         this.state = {
             liked: false,
-            likeCount: 0
+            likeCount: 0,
+            comments: 0
         };
     }
     componentWillMount() {
         const { uid } = auth.currentUser;
-        dataBase.ref('game/' + this.props.game.id)
+        this.getGameRef()
         .on('value', snapshot => {
             const game = snapshot.val();
             if(game) {
@@ -23,6 +24,10 @@ export default class Gamebox extends Component {
                 })
             }
         })
+        this.getCommentRef().on('child_added', this.updateComment);
+    }
+    componentWillUnmount() {
+        this.getCommentRef().off('child_added', this.updateComment);
     }
     setLike = () => {
         this.toggleLike(!this.state.liked);
@@ -30,9 +35,18 @@ export default class Gamebox extends Component {
     getGameRef = () => {
        return dataBase.ref('game/' + this.props.game.id);
     }
+    getCommentRef = () => {
+        return dataBase.ref('comments/' + this.props.game.id)
+    }
+    updateComment = (data) => {
+        // const comment = data.val();
+        const comments = this.state.comments;
+        console.log(comments);
+        this.setState({comments: comments + 1})
+    }
     toggleLike = (liked) => {
         const { uid } = auth.currentUser;
-        dataBase.ref('game/' + this.props.game.id)
+        this.getGameRef()
         .transaction((game) => {
             if (game) {
                 if (game.likes && game.likes[uid]) {
@@ -73,7 +87,7 @@ export default class Gamebox extends Component {
                         </TouchableOpacity>
                         <View style={styles.iconContent}>
                             <Icon name="ios-chatboxes-outline" size={30} color="#184169"/>
-                            <Text>{comments}</Text>
+                            <Text>{this.state.comments}</Text>
                         </View>
                     </View>
                 </View>

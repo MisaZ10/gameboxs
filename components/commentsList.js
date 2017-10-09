@@ -17,10 +17,16 @@ export default class CommentsList extends Component {
     }
     componentDidMount() {
         this.updateDataSource(this.props.comments);
+        this.refs.listView.scrollToEnd({
+            animated: true
+        })
     }
     componentWillReceiveProps(newProps) {
         if (newProps.comments != this.props.comments) {
             this.updateDataSource(newProps.comments);
+            this.refs.listView.scrollToEnd({
+                animated: true
+            })
         }
     }
     updateDataSource = (comments) => {
@@ -30,12 +36,16 @@ export default class CommentsList extends Component {
                 .dataSource
                 .cloneWithRows(comments)
         })
+        this.refs.listView.scrollToEnd({
+            animated: true
+        })
     }
 
     render() {
         return (<ListView
             enableEmptySections={true}
             dataSource={this.state.dataSource}
+            ref='listView'
             renderRow={(comment) => {
             return (
                 <Comment comment={comment}></Comment>
